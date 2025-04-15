@@ -69,7 +69,7 @@ Este servicio encapsula toda la lógica de negocio relacionada con las acreditac
 
 - **Validación de punto de venta**: Antes de guardar una acreditación, consulta el microservicio de puntos de venta utilizando un cliente REST. Solo se permite registrar acreditaciones si el punto de venta existe y está activo.
   
-- **Eventos con RabbitMQ**: Después de guardar una acreditación válida, se lanza un evento asincrónico con RabbitMQ a emailRabbitMQ Microservice con el objetivo de enviar un PDF con las Acreditaciones guardadss al usuario.
+- **Eventos con RabbitMQ**: Después de guardar una acreditación válida, se lanza un evento asincrónico con RabbitMQ a emailRabbitMQ Microservice con el objetivo de enviar un PDF con las Acreditaciones guardadas al usuario.
 
 - **Cacheo con Redis**: 
   - `getAllAccreditations()` verifica si hay datos cacheados con `AccreditationCache`.
@@ -79,6 +79,12 @@ Este servicio encapsula toda la lógica de negocio relacionada con las acreditac
   - Convierte entre `Accreditation`, `AccreditationRequestDTO`, `AccreditationResponseDTO` y `AccreditationCreatedEvent` de forma limpia y automática.
 
 - **Errores controlados**: Se lanza una `ApplicationException` en caso de validaciones fallidas o errores inesperados.
+
+---
+
+## 🧩 Muestra del PDF que se le envia al email del usuario una vez creada la acreditación
+
+![Captura de pantalla 2025-04-14 193700](https://github.com/user-attachments/assets/2471d590-b0c4-4a55-b9ce-8b5439f10db3)
 
 ---
 
