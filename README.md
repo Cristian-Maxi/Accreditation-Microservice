@@ -82,7 +82,7 @@ Este servicio encapsula toda la lógica de negocio relacionada con las acreditac
 
 ---
 
-## ✅ Muestra del PDF que se le envia al email del usuario una vez creada la acreditación
+## 📨 Muestra del PDF que se le envia al email del usuario una vez creada la acreditación
 
 ![Captura de pantalla 2025-04-14 193700](https://github.com/user-attachments/assets/2471d590-b0c4-4a55-b9ce-8b5439f10db3)
 
@@ -237,6 +237,6 @@ networks:
 - Comando para construir y levantar con Podman Compose:
 `podman compose up --build`
 
-## 🧩 Estructura de la Carpeta
+## ✅ Estructura de la Carpeta
 
 ![Captura de pantalla 2025-04-14 193237](https://github.com/user-attachments/assets/a22c9b0c-0437-423f-a34e-b5a6794b6f8d)
