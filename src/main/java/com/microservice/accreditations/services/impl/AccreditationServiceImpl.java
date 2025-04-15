@@ -3,7 +3,7 @@ package com.microservice.accreditations.services.impl;
 import com.microservice.accreditations.config.RabbitMQConfig;
 import com.microservice.accreditations.dtos.AccreditationsDTO.*;
 import com.microservice.accreditations.dtos.PointOfSaleDTO.PointOfSaleDTO;
-import com.microservice.accreditations.exceptions.ApplicationException;
+import com.microservice.accreditations.exceptions.*;
 import com.microservice.accreditations.mappers.AccreditationMapper;
 import com.microservice.accreditations.models.Accreditation;
 import com.microservice.accreditations.repositories.AccreditationRepository;
@@ -36,20 +36,28 @@ public class AccreditationServiceImpl implements AccreditationService {
     public AccreditationResponseDTO saveAccreditation(AccreditationRequestDTO request) {
         PointOfSaleDTO pos = pointOfSaleRestTemplate.getPointOfSaleFromCacheOrHttp(request.pointOfSaleId());
 
-        if (pos == null || !pos.active()) {
-            throw new ApplicationException("Invalid or inactive point of sale.");
+        if (pos == null) {
+            throw new PointOfSaleNotFoundException("Point of sale not found.");
         }
+        if (!pos.active()) {
+            throw new PointOfSaleInactiveException("Invalid or inactive point of sale.");
+        }
+
         Accreditation accreditation = accreditationMapper.toEntity(request);
         accreditation.setPointOfSaleName(pos.name());
         accreditation.setReceivedAt(LocalDateTime.now());
-        Accreditation saved = accreditationRepository.save(accreditation);
 
-        AccreditationCreatedEvent event = accreditationMapper.toAccreditationCreatedEvent(saved);
+        try {
+            Accreditation saved = accreditationRepository.save(accreditation);
+            AccreditationCreatedEvent event = accreditationMapper.toAccreditationCreatedEvent(saved);
 
-        System.out.println("Sending event to RabbitMQ: " + event);
-        rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, event);
+            System.out.println("Sending event to RabbitMQ: " + event);
+            rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, event);
 
-        return accreditationMapper.toAccreditationResponseDTO(saved);
+            return accreditationMapper.toAccreditationResponseDTO(saved);
+        } catch (Exception e) {
+            throw new AccreditationSaveException("Failed to save accreditation: " + e.getMessage());
+        }
     }
 
     @Override
@@ -62,10 +70,12 @@ public class AccreditationServiceImpl implements AccreditationService {
         List<AccreditationResponseDTO> fromDb = accreditationRepository.findAll().stream()
                 .map(accreditationMapper::toAccreditationResponseDTO)
                 .collect(Collectors.toList());
-        if (!fromDb.isEmpty()) {
-            accreditationCache.cacheAccreditations(fromDb);
+
+        if (fromDb.isEmpty()) {
+            throw new AccreditationNotFoundException("No accreditations found.");
         }
 
+        accreditationCache.cacheAccreditations(fromDb);
         return fromDb;
     }
 }

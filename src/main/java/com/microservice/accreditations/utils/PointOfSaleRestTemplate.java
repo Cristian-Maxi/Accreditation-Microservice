@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microservice.accreditations.dtos.PointOfSaleDTO.PointOfSaleDTO;
 import com.microservice.accreditations.enums.CacheType;
 import com.microservice.accreditations.exceptions.ApplicationException;
+import com.microservice.accreditations.exceptions.ExternalServiceException;
+import com.microservice.accreditations.exceptions.PointOfSaleNotFoundException;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
@@ -52,9 +54,9 @@ public class PointOfSaleRestTemplate {
             }
 
         } catch (HttpClientErrorException.NotFound e) {
-            throw new ApplicationException("Point of sale not found.");
+            throw new PointOfSaleNotFoundException("Point of sale not found.");
         } catch (Exception e) {
-            throw new ApplicationException("Error fetching point of sale from external service.");
+            throw new ExternalServiceException("Error fetching point of sale from external service.");
         }
 
         return null;
