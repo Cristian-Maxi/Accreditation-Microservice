@@ -1,7 +1,6 @@
 package com.microservice.accreditations.controllers;
 
-import com.microservice.accreditations.dtos.AccreditationsDTO.AccreditationRequestDTO;
-import com.microservice.accreditations.dtos.AccreditationsDTO.AccreditationResponseDTO;
+import com.microservice.accreditations.dtos.AccreditationsDTO.*;
 import com.microservice.accreditations.dtos.ApiResponseDTO;
 import com.microservice.accreditations.exceptions.ApplicationException;
 import com.microservice.accreditations.services.AccreditationService;
