@@ -11,12 +11,14 @@ import com.microservice.accreditations.services.AccreditationService;
 import com.microservice.accreditations.utils.AccreditationCache;
 import com.microservice.accreditations.utils.AccreditationCreatedEvent;
 import com.microservice.accreditations.utils.PointOfSaleRestTemplate;
+import jakarta.transaction.Transactional;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,16 +34,13 @@ public class AccreditationServiceImpl implements AccreditationService {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
+    @Transactional
     @Override
     public AccreditationResponseDTO saveAccreditation(AccreditationRequestDTO request) {
         PointOfSaleDTO pos = pointOfSaleRestTemplate.getPointOfSaleFromCacheOrHttp(request.pointOfSaleId());
 
-        if (pos == null) {
-            throw new PointOfSaleNotFoundException("Point of sale not found.");
-        }
-        if (!pos.active()) {
-            throw new PointOfSaleInactiveException("Invalid or inactive point of sale.");
-        }
+        if (Objects.isNull(pos)) throw new PointOfSaleNotFoundException("Point of sale not found.");
+        if (!pos.active()) throw new PointOfSaleInactiveException("Invalid or inactive point of sale.");
 
         Accreditation accreditation = accreditationMapper.toEntity(request);
         accreditation.setPointOfSaleName(pos.name());
@@ -64,16 +63,13 @@ public class AccreditationServiceImpl implements AccreditationService {
     public List<AccreditationResponseDTO> getAllAccreditations() {
         List<AccreditationResponseDTO> cached = accreditationCache.getCachedAccreditations();
 
-        if (cached != null && !cached.isEmpty()) {
-            return cached;
-        }
+        if (Objects.nonNull(cached) && !cached.isEmpty()) {return cached;}
+
         List<AccreditationResponseDTO> fromDb = accreditationRepository.findAll().stream()
                 .map(accreditationMapper::toAccreditationResponseDTO)
                 .collect(Collectors.toList());
 
-        if (fromDb.isEmpty()) {
-            throw new AccreditationNotFoundException("No accreditations found.");
-        }
+        if (fromDb.isEmpty()) {throw new AccreditationNotFoundException("No accreditations found.");}
 
         accreditationCache.cacheAccreditations(fromDb);
         return fromDb;

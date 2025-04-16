@@ -171,7 +171,7 @@ services:
       - spring-network
 
   eureka:
-    build: ./eureka
+    build: ./eureka_server
     container_name: eureka_server
     ports:
       - "8761:8761"
@@ -179,7 +179,7 @@ services:
       - spring-network
 
   gateway:
-    build: ./gateway
+    build: ./cloud-gateway
     container_name: gateway_service
     ports:
       - "8080:8080"
@@ -189,7 +189,7 @@ services:
       - spring-network
 
   pointsalecost:
-    build: ./pointsalecost
+    build: ./Point_of_Sale_Cost-Microservice
     container_name: pointsalecost_service
     depends_on:
       - postgres
@@ -202,7 +202,7 @@ services:
       - spring-network
 
   accreditations:
-    build: ./accreditations
+    build: ./Accreditation-Microservice
     container_name: accreditations_service
     depends_on:
       - postgres
@@ -216,7 +216,7 @@ services:
       - spring-network
 
   emailrabbitmq:
-    build: ./emailRabbitMQ
+    build: ./emailRabbitMQ-Microservice
     container_name: email_rabbitmq_service
     depends_on:
       - rabbitmq
