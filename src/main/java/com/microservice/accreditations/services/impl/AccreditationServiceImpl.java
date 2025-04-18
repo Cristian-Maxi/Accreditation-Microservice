@@ -11,6 +11,7 @@ import com.microservice.accreditations.services.AccreditationService;
 import com.microservice.accreditations.utils.AccreditationCache;
 import com.microservice.accreditations.utils.AccreditationCreatedEvent;
 import com.microservice.accreditations.utils.PointOfSaleRestTemplate;
+import com.microservice.accreditations.utils.UserEntityRestTemplate;
 import jakarta.transaction.Transactional;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,21 +29,25 @@ public class AccreditationServiceImpl implements AccreditationService {
     @Autowired
     private PointOfSaleRestTemplate pointOfSaleRestTemplate;
     @Autowired
+    private UserEntityRestTemplate userEntityRestTemplate;
+    @Autowired
     private AccreditationMapper accreditationMapper;
     @Autowired
     private AccreditationCache accreditationCache;
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    @Transactional
+    //@Transactional(rollbackFor = Exception.class)
     @Override
     public AccreditationResponseDTO saveAccreditation(AccreditationRequestDTO request) {
         PointOfSaleDTO pos = pointOfSaleRestTemplate.getPointOfSaleFromCacheOrHttp(request.pointOfSaleId());
+        Long userId = userEntityRestTemplate.validateUserEmail(request.email());
 
         if (Objects.isNull(pos)) throw new PointOfSaleNotFoundException("Point of sale not found.");
         if (!pos.active()) throw new PointOfSaleInactiveException("Invalid or inactive point of sale.");
 
         Accreditation accreditation = accreditationMapper.toEntity(request);
+        accreditation.setUserId(userId);
         accreditation.setPointOfSaleName(pos.name());
         accreditation.setReceivedAt(LocalDateTime.now());
 

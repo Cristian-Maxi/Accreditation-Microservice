@@ -17,6 +17,7 @@ public class Accreditation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long userId;
     private Double amount;
     private Long pointOfSaleId;
     private String pointOfSaleName;

@@ -3,7 +3,6 @@ package com.microservice.accreditations.utils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.microservice.accreditations.dtos.PointOfSaleDTO.PointOfSaleDTO;
 import com.microservice.accreditations.enums.CacheType;
-import com.microservice.accreditations.exceptions.ApplicationException;
 import com.microservice.accreditations.exceptions.ExternalServiceException;
 import com.microservice.accreditations.exceptions.PointOfSaleNotFoundException;
 import org.springframework.data.redis.core.HashOperations;

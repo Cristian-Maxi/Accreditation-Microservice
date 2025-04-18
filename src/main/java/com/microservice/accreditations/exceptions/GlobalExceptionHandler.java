@@ -75,6 +75,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, errorResponse.status());
     }
 
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleUSerNotFoundException(PointOfSaleNotFoundException ex) {
+        logger.error("Usuario no encontrado: {}", ex.getMessage());
+
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage());
+        return new ResponseEntity<>(errorResponse, errorResponse.status());
+    }
+
     @ExceptionHandler(PointOfSaleInactiveException.class)
     public ResponseEntity<ErrorResponse> handlePointOfSaleInactiveException(PointOfSaleInactiveException ex) {
         logger.error("Punto de venta inactivo: {}", ex.getMessage());
