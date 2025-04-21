@@ -20,6 +20,7 @@ Este proyecto es una implementación de una arquitectura de microservicios basad
 - Mailtrap
 - Docker / Podman
 - Postman / DBBeaver
+- Open Api (Swagger)
 
 ---
 
@@ -125,6 +126,8 @@ POSTGRES_DB=myappdb
 
 SPRING_DATASOURCE_USERNAME=postgres
 SPRING_DATASOURCE_PASSWORD=postgres
+
+SECRET_KEY=B374A26A71421437AA024E4FADD5B478FDFF1A8EA6FF12F6FB65AF2720B59CCF
 ```
 
 - docker-compose.yml:
@@ -185,6 +188,8 @@ services:
       - "8080:8080"
     depends_on:
       - eureka
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
     networks:
       - spring-network
 
@@ -215,11 +220,28 @@ services:
     networks:
       - spring-network
 
+  usermicroservice:
+    build: ./Users-Microservice
+    container_name: usermicroservice_service
+    depends_on:
+      - postgres
+      - redis
+      - eureka
+      - rabbitmq
+    environment:
+      - SPRING_DATASOURCE_USERNAME=${SPRING_DATASOURCE_USERNAME}
+      - SPRING_DATASOURCE_PASSWORD=${SPRING_DATASOURCE_PASSWORD}
+      - SECRET_KEY=${SECRET_KEY}
+    networks:
+      - spring-network
+
   emailrabbitmq:
     build: ./emailRabbitMQ-Microservice
     container_name: email_rabbitmq_service
     depends_on:
       - rabbitmq
+    environment:
+      - SECRET_KEY=${SECRET_KEY}
     ports:
       - "8084:8084"
     networks:
@@ -239,4 +261,4 @@ networks:
 
 ## ✅ Estructura de la Carpeta
 
-![Captura de pantalla 2025-04-14 193237](https://github.com/user-attachments/assets/a22c9b0c-0437-423f-a34e-b5a6794b6f8d)
+![Captura de pantalla 2025-04-14 193237.png](../../../Pictures/Screenshots/Captura%20de%20pantalla%202025-04-14%20193237.png)

@@ -54,6 +54,7 @@ public class AccreditationServiceImpl implements AccreditationService {
         try {
             Accreditation saved = accreditationRepository.save(accreditation);
             AccreditationCreatedEvent event = accreditationMapper.toAccreditationCreatedEvent(saved);
+            event.setEmail(request.email());
 
             System.out.println("Sending event to RabbitMQ: " + event);
             rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE, RabbitMQConfig.ROUTING_KEY, event);
