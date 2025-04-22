@@ -21,6 +21,7 @@ Este proyecto es una implementación de una arquitectura de microservicios basad
 - Docker / Podman
 - Postman / DBBeaver
 - Open Api (Swagger)
+- Junit / Mockito
 
 ---
 
