@@ -264,5 +264,27 @@ networks:
 
 ## ✅ Estructura de la Carpeta
 
-![Captura de pantalla 2025-04-14 193237.png](../../../Pictures/Screenshots/Captura%20de%20pantalla%202025-04-14%20193237.png)
+![Estructura de carpetas](https://github.com/user-attachments/assets/b6ff7ad2-9a19-40d1-93d3-4d98b37054b8)
 
+
+# ⚙️ Test unitarios
+
+## Jacoco + informe en HTML
+
+![accreditation JaCoCo test](https://github.com/user-attachments/assets/f90c3f72-b5b8-435f-922c-6b59b4984afc)
+
+
+##  Sonar Qube
+
+![Sonar Qube accreditation New Code](https://github.com/user-attachments/assets/face789f-167a-4693-9520-212cae6499ea)
+
+
+![Sonar Qube accreditation Overall Code](https://github.com/user-attachments/assets/9bb9c719-9dde-4676-9591-c00bef0a2a46)
+
+
+## 🧩 Swagger | Open API
+
+
+Endpoint swagger: http://localhost:8080/swagger-ui/index.html
+
+![Accreditation swagger](https://github.com/user-attachments/assets/0f5d2949-7a75-40b8-8b6a-38b9d86ba20d)
