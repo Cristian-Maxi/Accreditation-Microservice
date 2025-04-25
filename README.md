@@ -92,6 +92,23 @@ Este servicio encapsula toda la lógica de negocio relacionada con las acreditac
 
 ---
 
+## 🔎 Patrones de diseño utilizados:
+
+- Arquitectura por Capas (Controller-Service-Repository)
+- Inyección de Dependencias (Dependency Injection)
+- Patrón Data Mapper
+- Patrón DTO
+- Patrón de Cacheo
+- Arquitectura Orientada a Eventos (Event-Driven Architecture)
+- Template Method
+- Role-Based Access Control
+- Manejo Centralizado de Excepciones (Exception Handling Pattern):
+- Singleton
+- Factory
+- Strategy (Role Validator)
+
+---
+
 ## 🔄 Flujo General
 ```
 Cliente HTTP
