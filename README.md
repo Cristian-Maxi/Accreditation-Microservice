@@ -288,3 +288,38 @@ networks:
 Endpoint swagger: http://localhost:8080/swagger-ui/index.html
 
 ![Accreditation swagger](https://github.com/user-attachments/assets/0f5d2949-7a75-40b8-8b6a-38b9d86ba20d)
+
+
+### 📊 Diagrama de clases
+
+
+```mermaid
+
+classDiagram
+direction LR
+
+class UserEntity {
+    Long id
+    String email
+    String name
+    String lastname
+    String password
+    boolean isEnabled
+    boolean accountNoExpired
+    boolean accountNoLocked
+    boolean credentialNoExpired
+    RoleEnum role
+}
+
+class Accreditation {
+    Long id
+    Long userId
+    Double amount
+    Long pointOfSaleId
+    String pointOfSaleName
+    LocalDateTime receivedAt
+}
+
+<<External>> UserEntity
+
+Accreditation --> UserEntity : userId
