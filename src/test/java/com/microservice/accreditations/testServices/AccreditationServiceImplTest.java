@@ -20,7 +20,6 @@ import com.microservice.accreditations.utils.UserEntityRestTemplate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -46,12 +45,12 @@ public class AccreditationServiceImplTest {
     @Mock
     private RabbitTemplate rabbitTemplate;
 
-    @InjectMocks
-    private AccreditationServiceImpl accreditationService;
+    AccreditationServiceImpl accreditationService;
 
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
+        accreditationService = new AccreditationServiceImpl(accreditationRepository, pointOfSaleRestTemplate, userEntityRestTemplate, accreditationMapper, accreditationCache, rabbitTemplate);
     }
 
     @Test

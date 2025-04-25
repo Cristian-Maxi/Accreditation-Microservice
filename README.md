@@ -22,6 +22,8 @@ Este proyecto es una implementación de una arquitectura de microservicios basad
 - Postman / DBBeaver
 - Open Api (Swagger)
 - Junit / Mockito
+- Jacoco + informe en HTML 
+- SonarQube (Revisión de cobertura)
 
 ---
 
@@ -263,3 +265,4 @@ networks:
 ## ✅ Estructura de la Carpeta
 
 ![Captura de pantalla 2025-04-14 193237.png](../../../Pictures/Screenshots/Captura%20de%20pantalla%202025-04-14%20193237.png)
+

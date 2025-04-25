@@ -76,7 +76,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleUSerNotFoundException(PointOfSaleNotFoundException ex) {
+    public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException ex) {
         logger.error("User Not Found: {}", ex.getMessage());
 
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.NOT_FOUND, ex.getMessage());
@@ -103,7 +103,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleExternalServiceException(ExternalServiceException ex) {
         logger.error("Error in external service: {}", ex.getMessage());
 
-        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.SERVICE_UNAVAILABLE, ex.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_GATEWAY, ex.getMessage());
         return new ResponseEntity<>(errorResponse, errorResponse.status());
     }
 

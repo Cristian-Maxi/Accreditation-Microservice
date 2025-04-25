@@ -12,9 +12,7 @@ import com.microservice.accreditations.utils.AccreditationCache;
 import com.microservice.accreditations.utils.AccreditationCreatedEvent;
 import com.microservice.accreditations.utils.PointOfSaleRestTemplate;
 import com.microservice.accreditations.utils.UserEntityRestTemplate;
-import jakarta.transaction.Transactional;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -24,18 +22,22 @@ import java.util.stream.Collectors;
 
 @Service
 public class AccreditationServiceImpl implements AccreditationService {
-    @Autowired
-    private AccreditationRepository accreditationRepository;
-    @Autowired
-    private PointOfSaleRestTemplate pointOfSaleRestTemplate;
-    @Autowired
-    private UserEntityRestTemplate userEntityRestTemplate;
-    @Autowired
-    private AccreditationMapper accreditationMapper;
-    @Autowired
-    private AccreditationCache accreditationCache;
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
+
+    private final AccreditationRepository accreditationRepository;
+    private final PointOfSaleRestTemplate pointOfSaleRestTemplate;
+    private final UserEntityRestTemplate userEntityRestTemplate;
+    private final AccreditationMapper accreditationMapper;
+    private final AccreditationCache accreditationCache;
+    private final RabbitTemplate rabbitTemplate;
+
+    public AccreditationServiceImpl(AccreditationRepository accreditationRepository, PointOfSaleRestTemplate pointOfSaleRestTemplate, UserEntityRestTemplate userEntityRestTemplate, AccreditationMapper accreditationMapper, AccreditationCache accreditationCache, RabbitTemplate rabbitTemplate) {
+        this.accreditationRepository = accreditationRepository;
+        this.pointOfSaleRestTemplate = pointOfSaleRestTemplate;
+        this.userEntityRestTemplate = userEntityRestTemplate;
+        this.accreditationMapper = accreditationMapper;
+        this.accreditationCache = accreditationCache;
+        this.rabbitTemplate = rabbitTemplate;
+    }
 
     //@Transactional(rollbackFor = Exception.class)
     @Override

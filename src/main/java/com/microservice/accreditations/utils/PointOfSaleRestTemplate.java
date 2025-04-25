@@ -44,16 +44,20 @@ public class PointOfSaleRestTemplate {
                     "http://pointsalecost/api/pointOfSale/internal/" + id, PointOfSaleDTO.class
             );
 
-            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-                PointOfSaleDTO fetched = response.getBody();
-                if (Boolean.TRUE.equals(fetched.active())) {
-                    pointOfSaleCache.put(CacheType.POINT_OF_SALE.getValues(), key, fetched);
+            if (response.getStatusCode().is2xxSuccessful()) {
+                PointOfSaleDTO body = response.getBody();
+                if (body != null) {
+                    if (Boolean.TRUE.equals(body.active())) {
+                        pointOfSaleCache.put(CacheType.POINT_OF_SALE.getValues(), key, body);
+                    }
+                    return body;
                 }
-                return fetched;
             }
 
         } catch (HttpClientErrorException.NotFound e) {
             throw new PointOfSaleNotFoundException("Point of sale not found.");
+        } catch (HttpClientErrorException e) {
+            throw new ExternalServiceException("Error fetching point of sale from external service.");
         } catch (Exception e) {
             throw new ExternalServiceException("Error fetching point of sale from external service.");
         }

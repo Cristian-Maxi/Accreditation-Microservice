@@ -26,6 +26,8 @@ public class UserEntityRestTemplate {
             }
         } catch (HttpClientErrorException.NotFound e) {
             throw new UserNotFoundException("User not found.");
+        } catch (HttpClientErrorException e) {
+            throw new ExternalServiceException("Error fetching user from external service.");
         } catch (Exception e) {
             throw new ExternalServiceException("Error fetching user from external service.");
         }
