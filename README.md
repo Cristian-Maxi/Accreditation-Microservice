@@ -22,6 +22,7 @@ Este proyecto es una implementación de una arquitectura de microservicios basad
 - Postman / DBBeaver
 - Open Api (Swagger)
 - Junit / Mockito
+- H2 Database (Testing)
 - Jacoco + informe en HTML 
 - SonarQube (Revisión de cobertura)
 
