@@ -290,7 +290,7 @@ Endpoint swagger: http://localhost:8080/swagger-ui/index.html
 ![Accreditation swagger](https://github.com/user-attachments/assets/0f5d2949-7a75-40b8-8b6a-38b9d86ba20d)
 
 
-### 📊 Diagrama de clases
+## 📊 Diagrama de clases
 
 
 ```mermaid
