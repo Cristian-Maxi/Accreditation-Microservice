@@ -282,7 +282,7 @@ networks:
 
 ## ✅ Estructura de la Carpeta
 
-![Estructura de carpetas](https://github.com/user-attachments/assets/b6ff7ad2-9a19-40d1-93d3-4d98b37054b8)
+![Estructuras de carpetas](https://github.com/user-attachments/assets/7a3329d7-b807-4aac-8f32-96f36606adcf)
 
 
 # ⚙️ Test unitarios
