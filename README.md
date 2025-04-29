@@ -1,4 +1,4 @@
-![Diagrama sin título drawio](https://github.com/user-attachments/assets/8a87b609-a9e2-4f3f-a9bf-46d89baed12c)# 🧩 Proyecto de Microservicios con Spring Boot
+# 🧩 Proyecto de Microservicios con Spring Boot
 
 Este proyecto es una implementación de una arquitectura de microservicios basada en Spring Boot. Utiliza tecnologías modernas como Redis, RabbitMQ y PostgreSQL para resolver problemas empresariales comunes de manera escalable, eficiente y modular.
 
@@ -341,3 +341,9 @@ class Accreditation {
 <<External>> UserEntity
 
 Accreditation --> UserEntity : userId
+
+```
+
+## 💻​ Diagrama del Flujo General de la Aplicación
+
+![Diagrama sin título drawio](https://github.com/user-attachments/assets/8a87b609-a9e2-4f3f-a9bf-46d89baed12c)
