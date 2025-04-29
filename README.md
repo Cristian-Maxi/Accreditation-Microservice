@@ -346,4 +346,4 @@ Accreditation --> UserEntity : userId
 
 ## 💻​ Diagrama del Flujo General de la Aplicación
 
-![Diagrama sin título drawio](https://github.com/user-attachments/assets/8a87b609-a9e2-4f3f-a9bf-46d89baed12c)
+![Diagrama del Flujo General](https://github.com/user-attachments/assets/2d034514-c1a8-4201-88cf-3f7eaa2979ff)
