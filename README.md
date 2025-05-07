@@ -348,3 +348,7 @@ Accreditation --> UserEntity : userId
 ## 💻​ Diagrama del Flujo General de la Aplicación
 
 ![Diagrama del Flujo General](https://github.com/user-attachments/assets/c9106c67-a151-4f4c-9fb2-b2c6f1630faa)
+
+## 🏃‍♂️​​​ Zipkin para seguimiento de las solicitudes y trazabilidad
+
+![Zipkin](https://github.com/user-attachments/assets/daa36e3e-bae7-4e6a-bb7c-dded3890336b)
